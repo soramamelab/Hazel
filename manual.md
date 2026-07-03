@@ -26,7 +26,7 @@ Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハ�
 ### 必要なもの
 
 - Coffee Hazel センサー（ΔH₂Oを計測し `/getData` エンドポイントで JSON を返すもの）
-- PC（Windows または macOS）と Coffee Hazel センサーが同じ Wi-Fi ネットワークに接続されていること
+- PC（Windows・macOS・Ubuntu）と Coffee Hazel センサーが同じ Wi-Fi ネットワークに接続されていること
 
 ### インストール（macOS）
 
@@ -38,12 +38,28 @@ Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハ�
 
 `HazelSetup.exe` を実行し、画面の指示に従ってインストールしてください。デスクトップにショートカットが作成されます。
 
-### ソースから実行する場合
+### インストール（Ubuntu / Linux）
+
+`.deb` パッケージを使ってインストールします。
 
 ```bash
-pip install dash plotly requests pandas pywebview qrcode pillow
-python app.py
+sudo dpkg -i coffee-hazel_2.0.1_amd64.deb
+# 依存パッケージが不足している場合は以下を実行
+sudo apt --fix-broken install
 ```
+
+インストール後は以下のいずれかの方法で起動できます。
+
+- ターミナルから `coffee-hazel` コマンドを実行
+- アプリケーションメニューから「Coffee Hazel」を起動
+
+アンインストールする場合は次のコマンドを実行してください。
+
+```bash
+sudo apt remove coffee-hazel
+```
+
+必要な実行時依存パッケージ：`python3-gi`, `gir1.2-gtk-3.0`, `gir1.2-webkit2-4.1`, `libgtk-3-0t64`
 
 起動するとデスクトップウィンドウが開きます。ブラウザから `http://localhost:8050` にアクセスしても同じ画面を利用できます。
 
@@ -284,4 +300,4 @@ Settings タブの下部に QR コードが表示されています。
 
 | バージョン | 内容 |
 |-----------|------|
-| **V2.0.1** | ΔH₂O・ΔH₂O変化率に用語統一。投入・チャージ自動検出を急変動（正負両方向）に変更。更新間隔デフォルト 2 秒。アプリアイコン追加。著作権表示追加 |
+| **V2.0.1** | ΔH₂O・ΔH₂O変化率に用語統一。投入・チャージ自動検出を急変動（正負両方向）に変更。更新間隔デフォルト 2 秒。アプリアイコン追加。著作権表示追加。Ubuntu 用 `.deb` パッケージを追加 |

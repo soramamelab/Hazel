@@ -32,6 +32,17 @@
 
 [Releases](https://github.com/soramamelab/Hazel/releases) から `HazelSetup.exe` をダウンロードして実行してください。
 
+### Ubuntu / Linux
+
+[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.0.1_amd64.deb` をダウンロードし、以下を実行してください。
+
+```bash
+sudo dpkg -i coffee-hazel_2.0.1_amd64.deb
+sudo apt --fix-broken install   # 依存パッケージ不足時
+```
+
+インストール後は `coffee-hazel` コマンド、またはアプリケーションメニューの「Coffee Hazel」から起動できます。詳細は [manual.md](manual.md#インストールubuntu--linux) を参照してください。
+
 ---
 
 ## 必要環境
@@ -57,4 +68,4 @@
 
 | バージョン | 内容 |
 |-----------|------|
-| **V2.0.1** | ΔH₂O・ΔH₂O変化率に用語統一。投入・チャージ自動検出を急変動（正負両方向）に変更。更新間隔デフォルト 2 秒。アプリアイコン追加。著作権表示追加 |
+| **V2.0.1** | ΔH₂O・ΔH₂O変化率に用語統一。投入・チャージ自動検出を急変動（正負両方向）に変更。更新間隔デフォルト 2 秒。アプリアイコン追加。著作権表示追加。Ubuntu 用 `.deb` パッケージを追加 |
