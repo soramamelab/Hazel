@@ -47,7 +47,7 @@ sudo apt --fix-broken install   # 依存パッケージ不足時
 
 ## 必要環境
 
-- Coffee Hazel センサー（`/getData` エンドポイントで JSON を返すもの）
+- Coffee Hazel センサー（株式会社　宙豆ラボ製）
 - PC と Coffee Hazel センサーが同じ Wi-Fi ネットワークに接続されていること
 
 ---
