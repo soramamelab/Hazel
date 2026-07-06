@@ -31,7 +31,7 @@ Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハ�
 ### インストール（macOS）
 
 1. `CoffeeHazel-v2.0.2.dmg` をダウンロード
-2. DMG を開き、`Hazel2.app` をアプリケーションフォルダにドラッグ＆ドロップ
+2. DMG を開き、`Coffee Hazel.app` をアプリケーションフォルダにドラッグ＆ドロップ
 3. 初回起動時は右クリック →「開く」で Gatekeeper の警告をスキップ
 
 ### インストール（Windows）

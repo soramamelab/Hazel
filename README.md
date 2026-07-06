@@ -25,7 +25,7 @@
 ### macOS
 
 1. [Releases](https://github.com/soramamelab/Hazel/releases) から `CoffeeHazel-v2.0.2.dmg` をダウンロード
-2. DMG を開き、`Hazel2.app` をアプリケーションフォルダにドラッグ＆ドロップ
+2. DMG を開き、`Coffee Hazel.app` をアプリケーションフォルダにドラッグ＆ドロップ
 3. 初回起動時は右クリック →「開く」で Gatekeeper の警告をスキップ
 
 ### Windows
