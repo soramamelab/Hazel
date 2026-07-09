@@ -38,6 +38,13 @@ Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハ�
 
 `HazelSetup.exe` を実行し、画面の指示に従ってインストールしてください。デスクトップにショートカットが作成されます。
 
+- 対応OS: Windows 10 (64bit) 以降
+- 本アプリは画面表示に **WebView2 ランタイム** を使用します。Windows 11 および最新の Windows 10（Edgeがプリインストールされているバージョン）では標準搭載されているため追加作業は不要です。
+- インストール後にアプリを起動しても画面が表示されない・真っ白になる場合は、WebView2 ランタイムが未導入の可能性があります。以下の手順で導入してください。
+  1. [Microsoft公式のEvergreen Bootstrapper](https://developer.microsoft.com/microsoft-edge/webview2/)から「Evergreen Bootstrapper」をダウンロード
+  2. ダウンロードした `MicrosoftEdgeWebview2Setup.exe` を実行してインストール
+  3. Coffee Hazel を再起動
+
 ### インストール（Ubuntu / Linux）
 
 `.deb` パッケージを使ってインストールします。
@@ -253,6 +260,11 @@ Settings タブの下部に QR コードが表示されています。
 ---
 
 ## 10. トラブルシューティング
+
+### （Windows）起動後に画面が表示されない・真っ白になる
+
+- WebView2 ランタイムが未導入の可能性があります。[Evergreen Bootstrapper](https://developer.microsoft.com/microsoft-edge/webview2/) をダウンロードして `MicrosoftEdgeWebview2Setup.exe` を実行し、Coffee Hazel を再起動してください
+- Windows 11、または Edge が導入済みの Windows 10 では通常このランタイムは標準搭載されています
 
 ### 「API Error」が表示される
 

@@ -30,7 +30,9 @@
 
 ### Windows
 
-[Releases](https://github.com/soramamelab/Hazel/releases) から `HazelSetup.exe` をダウンロードして実行してください。
+[Releases](https://github.com/soramamelab/Hazel/releases) から `HazelSetup.exe` をダウンロードして実行してください。（対応OS: Windows 10 以降）
+
+> 起動後に画面が表示されない場合は、WebView2 ランタイムが未導入の可能性があります。[Evergreen Bootstrapper](https://developer.microsoft.com/microsoft-edge/webview2/) からインストールしてください。詳細は [manual.md](manual.md#10-トラブルシューティング) を参照してください。
 
 ### Ubuntu / Linux
 
