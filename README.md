@@ -24,10 +24,17 @@
 
 ### macOS
 
-1. [Releases](https://github.com/soramamelab/Hazel/releases) から `CoffeeHazel-v2.1.0.dmg` をダウンロード
+CPUに合わせてDMGを選択してください（Apple メニュー →「このMacについて」で確認）。
+
+| Mac の種類 | ダウンロードするファイル |
+|-----------|----------------------|
+| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.1.1-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.1.1/CoffeeHazel-v2.1.1-AppleSilicon.dmg) |
+| Intel Mac | [`CoffeeHazel-v2.1.1-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.1.1/CoffeeHazel-v2.1.1-Intel.dmg) |
+
+1. 上記のファイルをダウンロード
 2. DMG を開き、`Coffee Hazel.app` をアプリケーションフォルダにドラッグ＆ドロップ
-3. 初回起動時に「"Coffee Hazel"は開いていません」「マルウェアが含まれていないことを検証できませんでした」と表示された場合（Apple公証を受けていないアプリに出る標準の警告で、アプリに問題はありません）:
-   - **macOS 15（Sequoia）以降**: 警告を閉じ（「ゴミ箱に入れる」は押さない）→ システム設定 →「プライバシーとセキュリティ」→ 下部の「このまま開く」をクリック → パスワードまたは Touch ID で許可
+3. 初回起動時に「"Coffee Hazel"は開いていません」と表示された場合（Apple公証を受けていないアプリに出る標準の警告です）:
+   - **macOS 15（Sequoia）以降**: 警告を閉じ → システム設定 →「プライバシーとセキュリティ」→「このまま開く」→ Touch ID またはパスワードで許可
    - **macOS 14（Sonoma）以前**: アプリケーションフォルダで右クリック →「開く」→「開く」
 
 ### Windows
@@ -41,7 +48,7 @@
 [Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.0.1_amd64.deb` をダウンロードし、以下を実行してください。
 
 ```bash
-sudo dpkg -i coffee-hazel_2.0.1_amd64.deb
+sudo dpkg -i coffee-hazel_2.1.1_amd64.deb
 sudo apt --fix-broken install   # 依存パッケージ不足時
 ```
 
@@ -72,6 +79,7 @@ sudo apt --fix-broken install   # 依存パッケージ不足時
 
 | バージョン | 内容 |
 |-----------|------|
+| **V2.1.1** | macOS版をApple Silicon用・Intel用の2種類のDMGに分離。macOS 15以降のGatekeeper回避手順を更新 |
 | **V2.1.0** | macOS版をIntel Mac（x86_64）対応に。Apple Silicon（M1/M2/M3）はRosetta 2経由で引き続き動作 |
 | **V2.0.2** | 1ハゼ検出しきい値スライダーおよび急変動しきい値スライダーに現在値の数値表示を追加 |
 | **V2.0.1** | ΔH₂O・ΔH₂O変化率に用語統一。投入・チャージ自動検出を急変動（正負両方向）に変更。更新間隔デフォルト 2 秒。アプリアイコン追加。著作権表示追加。Ubuntu 用 `.deb` パッケージを追加 |
