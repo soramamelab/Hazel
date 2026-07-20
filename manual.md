@@ -1,6 +1,6 @@
-# Coffee Hazel V2.1.1 — ユーザーマニュアル
+# Coffee Hazel V2.2.0 — ユーザーマニュアル
 
-Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハゼ（First Crack）のタイミングを自動検出するデスクトップアプリケーションです。株式会社宙豆ラボ制作のCoffee Hazel センサーからデータを取得し、ΔH₂OとΔH₂O変化率のグラフをライブ表示します。
+Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハゼ（First Crack）のタイミングを自動検出するデスクトップアプリケーションです。株式会社宙豆ラボ制作のCoffee Hazel センサーからデータを Wi-Fi または Bluetooth (BLE) 経由で取得し、ΔH₂OとΔH₂O変化率のグラフをライブ表示します。
 
 © 2026 SORAMAME LAB INC. All rights reserved.
 
@@ -18,6 +18,7 @@ Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハ�
 8. [CSV エクスポート](#8-csv-エクスポート)
 9. [設定ファイルの場所](#9-設定ファイルの場所)
 10. [トラブルシューティング](#10-トラブルシューティング)
+11. [Bluetooth (BLE) 接続モード](#11-bluetooth-ble-接続モード)
 
 ---
 
@@ -25,8 +26,10 @@ Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハ�
 
 ### 必要なもの
 
-- Coffee Hazel センサー（ΔH₂Oを計測し `/getData` エンドポイントで JSON を返すもの）
-- PC（Windows・macOS・Ubuntu）と Coffee Hazel センサーが同じ Wi-Fi ネットワークに接続されていること
+- Coffee Hazel センサー（株式会社宙豆ラボ製、ファームウェア V2.2 以降）
+- PC（Windows・macOS・Ubuntu）
+- **Wi-Fi モード**: PC と Coffee Hazel センサーが同じ 2.4GHz Wi-Fi ネットワークに接続されていること
+- **Bluetooth モード**: PC に Bluetooth 4.0 以上（BLE対応）が搭載されていること（→ [Bluetooth 接続モードの詳細](#11-bluetooth-ble-接続モード)）
 
 ### インストール（macOS）
 
@@ -34,8 +37,8 @@ Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハ�
 
 | Mac の種類 | ダウンロードするファイル |
 |-----------|----------------------|
-| Apple Silicon（M1 / M2 / M3 など） | `CoffeeHazel-v2.1.1-AppleSilicon.dmg` |
-| Intel Mac | `CoffeeHazel-v2.1.1-Intel.dmg` |
+| Apple Silicon（M1 / M2 / M3 など） | `CoffeeHazel-v2.2.0-AppleSilicon.dmg` |
+| Intel Mac | `CoffeeHazel-v2.2.0-Intel.dmg` |
 
 > CPUの確認方法：Apple メニュー（左上のリンゴマーク）→「このMacについて」→「チップ」または「プロセッサ」欄を確認
 
@@ -61,7 +64,7 @@ Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハ�
 `.deb` パッケージを使ってインストールします。
 
 ```bash
-sudo dpkg -i coffee-hazel_2.0.1_amd64.deb
+sudo dpkg -i coffee-hazel_2.2.0_amd64.deb
 # 依存パッケージが不足している場合は以下を実行
 sudo apt --fix-broken install
 ```
@@ -77,7 +80,7 @@ sudo apt --fix-broken install
 sudo apt remove coffee-hazel
 ```
 
-必要な実行時依存パッケージ：`python3-gi`, `gir1.2-gtk-3.0`, `gir1.2-webkit2-4.1`, `libgtk-3-0t64`
+必要な実行時依存パッケージ：`python3-gi`, `gir1.2-gtk-3.0`, `gir1.2-webkit2-4.1`, `libgtk-3-0t64`, `bluez`（Bluetooth使用時）
 
 起動するとデスクトップウィンドウが開きます。ブラウザから `http://localhost:8050` にアクセスしても同じ画面を利用できます。
 
@@ -135,11 +138,22 @@ sudo apt remove coffee-hazel
 
 サイドバーの Settings タブには、メイン設定と詳細設定があります。
 
+### 接続モード
+
+| 選択肢 | 説明 |
+|--------|------|
+| **Wi-Fi**（デフォルト） | PC と Coffee Hazel が同じ 2.4GHz Wi-Fi に接続している場合に使用。スマホからの同時アクセスも可能 |
+| **Bluetooth** | 2.4GHz Wi-Fi が使えない環境で使用。PC の Bluetooth 経由でセンサーに直接接続する |
+
+Bluetooth を選ぶと自動的にスキャンが始まり、「Coffee Hazel」デバイスが見つかると接続されます。接続状態はサイドバーにリアルタイムで表示されます。
+
+> Bluetooth モードではスマホからの同時アクセスはできません。
+
 ### メイン設定
 
 | 項目 | 説明 |
 |------|------|
-| **SSID / Host** | Coffee Hazel センサーの IP アドレスまたはホスト名。入力例：`192.168.1.10`、`hazel`（自動で `hazel.local` に補完）、`hazel.local` |
+| **SSID / Host** | （Wi-Fiモード時のみ表示）Coffee Hazel センサーの IP アドレスまたはホスト名。入力例：`192.168.1.10`、`hazel`（自動で `hazel.local` に補完）、`hazel.local` |
 | **1st Crack Threshold** | 1ハゼ検出に使うΔH₂O変化率の閾値（g/m³/s）。デフォルト 0.05 |
 | **X-axis range** | Auto：データに応じて自動拡張 / Fixed：指定した値で固定 |
 | **Y-axis: ΔH₂O** | Auto：データに応じて自動調整 / Fixed：最小値〜最大値を手入力 |
@@ -317,12 +331,52 @@ Settings タブの下部に QR コードが表示されています。
 - ファイアウォールがポート 8050 をブロックしていないか確認してください
 - QR コード下に表示されている URL をスマホのブラウザに直接入力してみてください
 
+### Bluetooth で接続できない
+
+- PC の Bluetooth が有効になっているか確認してください
+- Coffee Hazel センサーのファームウェアが V2.2 以降であることを確認してください
+- Coffee Hazel センサーが Wi-Fi に接続できなかった場合のみ Bluetooth モードで起動します。センサー側のステータスを確認してください
+- macOS の場合、システム設定 →「プライバシーとセキュリティ」→「Bluetooth」で Coffee Hazel アプリへのアクセスが許可されているか確認してください
+- 一度「Wi-Fi」モードに切り替えてから再度「Bluetooth」に切り替えると再スキャンが始まります
+
+---
+
+## 11. Bluetooth (BLE) 接続モード
+
+V2.2.0 から、Wi-Fi の代わりに Bluetooth Low Energy (BLE) でCoffee Hazel センサーに接続できるようになりました。
+
+### 使用場面
+
+- 焙煎環境に 2.4GHz Wi-Fi がなく、5GHz のみの場合
+- Wi-Fi ルーターがない場所での焙煎
+
+### 仕組み
+
+Coffee Hazel センサー（T-Display-S3）は、Wi-Fi への接続に失敗した場合に自動的に Bluetooth モードに切り替わります。アプリ側で「Bluetooth」モードを選ぶと、「Coffee Hazel」という名前のデバイスをスキャンし、見つかると自動で接続します。
+
+センサーからのデータは BLE NUS（Nordic UART Service）経由で送られ、Wi-Fi モードと同じ JSON フォーマットで受信されます。グラフ・1ハゼ検出・CSV エクスポートなど、すべての機能がそのまま使えます。
+
+### 切り替え手順
+
+1. Settings タブ最上部の「接続モード」で **Bluetooth** を選択
+2. サイドバーに「🔍 Bluetooth: スキャン中...」と表示される
+3. Coffee Hazel センサーが検出されると「✓ Bluetooth: 接続済 (Coffee Hazel)」に変わる
+4. あとは Wi-Fi モードと同じように使用できる
+
+設定は次回起動時も記憶されます。Wi-Fi 環境に戻る場合は「Wi-Fi」に切り替えてください。
+
+### 制限事項
+
+- スマートフォンや他デバイスからの同時アクセス（QR コード経由）はできません
+- Coffee Hazel センサーが Wi-Fi に接続されている場合は Bluetooth モードで起動しないため、センサー側の Wi-Fi 設定をリセットするか、Wi-Fi のない環境でセンサーを起動してください
+
 ---
 
 ## バージョン履歴
 
 | バージョン | 内容 |
 |-----------|------|
+| **V2.2.0** | **Bluetooth (BLE) 接続モード追加** — 2.4GHz Wi-Fi 不要で Coffee Hazel センサーに直接接続可能に。設定サイドバーで Wi-Fi / Bluetooth を切り替え |
 | **V2.1.1** | macOS版をApple Silicon用・Intel用の2種類のDMGに分離。macOS 15以降のGatekeeper回避手順を更新 |
 | **V2.1.0** | macOS版をIntel Mac（x86_64）対応に。Apple Silicon（M1/M2/M3）はRosetta 2経由で引き続き動作 |
 | **V2.0.2** | 1ハゼ検出しきい値スライダーおよび急変動しきい値スライダーに現在値の数値表示を追加 |
