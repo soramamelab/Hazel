@@ -29,8 +29,8 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 | Mac の種類 | ダウンロードするファイル |
 |-----------|----------------------|
-| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.2.0-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.2.0/CoffeeHazel-v2.2.0-AppleSilicon.dmg) |
-| Intel Mac | [`CoffeeHazel-v2.2.0-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.2.0/CoffeeHazel-v2.2.0-Intel.dmg) |
+| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.2.2-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.2.2/CoffeeHazel-v2.2.2-AppleSilicon.dmg) |
+| Intel Mac | [`CoffeeHazel-v2.2.2-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.2.2/CoffeeHazel-v2.2.2-Intel.dmg) |
 
 1. 上記のファイルをダウンロード
 2. DMG を開き、`Coffee Hazel.app` をアプリケーションフォルダにドラッグ＆ドロップ
@@ -46,10 +46,10 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 ### Ubuntu / Linux
 
-[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.2.0_amd64.deb` をダウンロードし、以下を実行してください。
+[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.2.2_amd64.deb` をダウンロードし、以下を実行してください。
 
 ```bash
-sudo dpkg -i coffee-hazel_2.2.0_amd64.deb
+sudo dpkg -i coffee-hazel_2.2.2_amd64.deb
 sudo apt --fix-broken install   # 依存パッケージ不足時
 ```
 
@@ -97,6 +97,8 @@ sudo apt --fix-broken install   # 依存パッケージ不足時
 
 | バージョン | 内容 |
 |-----------|------|
+| **V2.2.2** | アプリ画面のバージョン表示を自動化（VERSION ファイルから取得）。リリースノートを CHANGELOG から自動生成するようビルドを改善 |
+| **V2.2.1** | **Windows: 上書きインストール時の起動クラッシュを修正** — 旧バージョンのファイルが残って新バージョンと混在し起動に失敗する問題を解消。v2.2.0 以前で発生済みの場合も本バージョン以降の上書きインストールで解消 |
 | **V2.2.0** | **Bluetooth (BLE) 接続モード追加** — 2.4GHz Wi-Fi 不要で Coffee Hazel センサーに直接接続可能に。設定サイドバーで Wi-Fi / Bluetooth を切り替え |
 | **V2.1.1** | macOS版をApple Silicon用・Intel用の2種類のDMGに分離。macOS 15以降のGatekeeper回避手順を更新 |
 | **V2.1.0** | macOS版をIntel Mac（x86_64）対応に。Apple Silicon（M1/M2/M3）はRosetta 2経由で引き続き動作 |
