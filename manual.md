@@ -1,6 +1,6 @@
-# Coffee Hazel V2.2.0 — ユーザーマニュアル
+# Coffee Hazel V2.3.0 — ユーザーマニュアル
 
-Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハゼ（First Crack）のタイミングを自動検出するデスクトップアプリケーションです。株式会社宙豆ラボ制作のCoffee Hazel センサーからデータを Wi-Fi または Bluetooth (BLE) 経由で取得し、ΔH₂OとΔH₂O変化率のグラフをライブ表示します。
+Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハゼ（First Crack）のタイミングを自動検出するデスクトップアプリケーションです。株式会社宙豆ラボ制作のCoffee Hazel センサーからデータを取得し、ΔH₂OとΔH₂O変化率のグラフをライブ表示します。
 
 © 2026 SORAMAME LAB INC. All rights reserved.
 
@@ -18,7 +18,6 @@ Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハ�
 8. [CSV エクスポート](#8-csv-エクスポート)
 9. [設定ファイルの場所](#9-設定ファイルの場所)
 10. [トラブルシューティング](#10-トラブルシューティング)
-11. [Bluetooth (BLE) 接続モード](#11-bluetooth-ble-接続モード)
 
 ---
 
@@ -26,23 +25,14 @@ Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハ�
 
 ### 必要なもの
 
-- Coffee Hazel センサー（株式会社宙豆ラボ製、ファームウェア V2.2 以降）
-- PC（Windows・macOS・Ubuntu）
-- **Wi-Fi モード**: PC と Coffee Hazel センサーが同じ 2.4GHz Wi-Fi ネットワークに接続されていること
-- **Bluetooth モード**: PC に Bluetooth 4.0 以上（BLE対応）が搭載されていること（→ [Bluetooth 接続モードの詳細](#11-bluetooth-ble-接続モード)）
+- Coffee Hazel センサー（ΔH₂Oを計測し `/getData` エンドポイントで JSON を返すもの）
+- PC（Windows または macOS）と Coffee Hazel センサーが同じ Wi-Fi ネットワークに接続されていること
 
 ### インストール（macOS）
 
-お使いのMacのCPUに合わせてDMGを選択してください。
-
-| Mac の種類 | ダウンロードするファイル |
-|-----------|----------------------|
-| Apple Silicon（M1 / M2 / M3 など） | `CoffeeHazel-v2.2.0-AppleSilicon.dmg` |
-| Intel Mac | `CoffeeHazel-v2.2.0-Intel.dmg` |
-
-> CPUの確認方法：Apple メニュー（左上のリンゴマーク）→「このMacについて」→「チップ」または「プロセッサ」欄を確認
-
-1. 上記のファイルをダウンロード
+1. [Releases](https://github.com/soramamelab/Hazel/releases) から CPU に合わせて DMG をダウンロード（Apple メニュー →「このMacについて」で確認）
+   - Apple Silicon（M1 / M2 / M3 など）: `CoffeeHazel-vX.Y.Z-AppleSilicon.dmg`
+   - Intel Mac: `CoffeeHazel-vX.Y.Z-Intel.dmg`
 2. DMG を開き、`Coffee Hazel.app` をアプリケーションフォルダにドラッグ＆ドロップ
 3. 初回起動時に「"Coffee Hazel"は開いていません」「マルウェアが含まれていないことを検証できませんでした」と表示された場合（Apple公証を受けていないアプリに出る標準の警告で、アプリに問題はありません）:
    - **macOS 15（Sequoia）以降**: 警告を閉じ（「ゴミ箱に入れる」は押さない）→ システム設定 →「プライバシーとセキュリティ」→ 下部の「このまま開く」をクリック → パスワードまたは Touch ID で許可
@@ -61,10 +51,10 @@ Coffee Hazel は、焙煎中のΔH₂Oをリアルタイムで計測し、1ハ�
 
 ### インストール（Ubuntu / Linux）
 
-`.deb` パッケージを使ってインストールします。
+`.deb` パッケージを使ってインストールします。（対応OS: Ubuntu 22.04 / 24.04）
 
 ```bash
-sudo dpkg -i coffee-hazel_2.2.0_amd64.deb
+sudo dpkg -i coffee-hazel_2.3.0_amd64.deb
 # 依存パッケージが不足している場合は以下を実行
 sudo apt --fix-broken install
 ```
@@ -80,7 +70,27 @@ sudo apt --fix-broken install
 sudo apt remove coffee-hazel
 ```
 
-必要な実行時依存パッケージ：`python3-gi`, `gir1.2-gtk-3.0`, `gir1.2-webkit2-4.1`, `libgtk-3-0t64`, `bluez`（Bluetooth使用時）
+#### `.deb` パッケージを自分でビルドする場合
+
+`Hazel2_linux.spec` を使って PyInstaller でビルドします（GTK3 の Python バインディングを使うため、`--system-site-packages` 付きの仮想環境を推奨）。
+
+```bash
+python3 -m venv --system-site-packages venv
+source venv/bin/activate
+pip install dash plotly requests pandas pywebview qrcode pillow pyinstaller flask
+pyinstaller Hazel2_linux.spec
+```
+
+`dist/CoffeeHazel/` に生成された実行ファイル一式を `/opt/coffee-hazel/` などに配置し、`DEBIAN/control` を用意した上で `dpkg-deb --build --root-owner-group <ディレクトリ名>` で `.deb` を作成できます。
+
+必要な実行時依存パッケージ：`python3-gi`, `gir1.2-gtk-3.0`, `gir1.2-webkit2-4.1`, `libgtk-3-0`（24.04 では `libgtk-3-0t64`）, `bluez`
+
+### ソースから実行する場合
+
+```bash
+pip install dash plotly requests pandas pywebview qrcode pillow
+python app.py
+```
 
 起動するとデスクトップウィンドウが開きます。ブラウザから `http://localhost:8050` にアクセスしても同じ画面を利用できます。
 
@@ -103,6 +113,8 @@ sudo apt remove coffee-hazel
 - **ステータスバッジ** — 現在の状態（Standby / Roasting...）
 - **1ハゼアラート** — 検出時に赤字で「First crack soon!」と表示され、チャイム音が鳴る
 - **リアルタイムグラフ** — 上段：ΔH₂O、下段：ΔH₂O変化率（平滑化済み）
+  - 下段の縦軸は、ノイズ帯を圧縮しハゼ方向の変化を拡大する**非線形スケール**です（片対数グラフと同じ原理）。目盛り・ホバー表示・閾値はすべて実測値（g/m³/s）で表示されます
+  - 赤い点線＝1ハゼ検出の閾値ライン。グラフの線がこれを越えた瞬間に検出が発火します。閾値を変更しても**グラフの形は変わらず、赤線だけが上下**します
 - **Sensor Data** — 最新のセンサー生データ
 - **Export Roast Data** — 焙煎終了後に表示される CSV ダウンロードエリア
 
@@ -126,6 +138,14 @@ sudo apt remove coffee-hazel
 - ΔH₂O変化率が閾値を超えると、**「First crack soon!」** のアラートが表示されます
 - 初回検出時にチャイム音が鳴ります
 
+### 1ハゼの確認・訂正
+
+1ハゼを検知すると、グラフ上部に **「1ハゼを検知しました — ハゼですか？」** の確認バーが表示されます。
+
+- **はい** — 1ハゼとして確定します。確定後も焙煎中は「いいえ（取消）」ボタンが残るので、誤検出だった場合はあとから取り消せます
+- **いいえ（取消）** — 誤検出として記録を取り消します。その後、次の検知を待ちます
+- 焙煎終了ボタンを押すと訂正バーは閉じます（1ハゼ時刻はグラフ上の赤いマーカーで確認できます）
+
 ### 焙煎終了
 
 1. **Stop Roast** ボタンを押す
@@ -138,26 +158,15 @@ sudo apt remove coffee-hazel
 
 サイドバーの Settings タブには、メイン設定と詳細設定があります。
 
-### 接続モード
-
-| 選択肢 | 説明 |
-|--------|------|
-| **Wi-Fi**（デフォルト） | PC と Coffee Hazel が同じ 2.4GHz Wi-Fi に接続している場合に使用。スマホからの同時アクセスも可能 |
-| **Bluetooth** | 2.4GHz Wi-Fi が使えない環境で使用。PC の Bluetooth 経由でセンサーに直接接続する |
-
-Bluetooth を選ぶと自動的にスキャンが始まり、「Coffee Hazel」デバイスが見つかると接続されます。接続状態はサイドバーにリアルタイムで表示されます。
-
-> Bluetooth モードではスマホからの同時アクセスはできません。
-
 ### メイン設定
 
 | 項目 | 説明 |
 |------|------|
-| **SSID / Host** | （Wi-Fiモード時のみ表示）Coffee Hazel センサーの IP アドレスまたはホスト名。入力例：`192.168.1.10`、`hazel`（自動で `hazel.local` に補完）、`hazel.local` |
+| **SSID / Host** | Coffee Hazel センサーの IP アドレスまたはホスト名。入力例：`192.168.1.10`、`hazel`（自動で `hazel.local` に補完）、`hazel.local` |
 | **1st Crack Threshold** | 1ハゼ検出に使うΔH₂O変化率の閾値（g/m³/s）。デフォルト 0.05 |
 | **X-axis range** | Auto：データに応じて自動拡張 / Fixed：指定した値で固定 |
 | **Y-axis: ΔH₂O** | Auto：データに応じて自動調整 / Fixed：最小値〜最大値を手入力 |
-| **Y-axis: ΔH₂O変化率** | Auto：データに応じて自動調整 / Fixed：最小値〜最大値を手入力 |
+| **Y-axis: ΔH₂O変化率** | Auto：データに応じて自動調整 / Fixed：最小値〜最大値を手入力（**実測値 g/m³/s で指定**。軸が非線形のため画面上の見た目位置とは異なります） |
 
 ### 投入・チャージの自動検出
 
@@ -177,6 +186,7 @@ Bluetooth を選ぶと自動的にスキャンが始まり、「Coffee Hazel」�
 | **Require 3 consecutive** | ON | 閾値を 3 回連続で超えたときのみ 1ハゼと判定 |
 | **Max data points** | 1200 | メモリに保持する最大データ点数 |
 | **Ignore first N min** | 3.0 min | 焙煎開始から指定分間は 1ハゼ検出を無効化 |
+| **変化の強調 (γ)** | 1.6 | 変化率グラフの縦軸の強調度。小さな揺れを圧縮し、ハゼ方向の大きな変化を拡大して表示する（1.0 で通常の線形軸）。**表示のみの設定で、検出には影響しない**。強調の基準は固定値 0.05 で、1ハゼ閾値の設定とは独立 |
 
 ---
 
@@ -242,6 +252,17 @@ Settings タブの下部に QR コードが表示されています。
 2. QR コードをスキャン（またはその下の URL にアクセス）
 3. ブラウザでリアルタイムグラフを確認できます
 
+### QR コードの印刷（シェアロースター向け）
+
+QR コードの下の **「🖨 QRコードを印刷」** リンクから印刷用ページが開きます。右上の印刷ボタンでそのまま印刷できるので、焙煎機のそばに掲示しておけば、誰でもスマホをかざすだけで焙煎グラフを見られます。
+
+- PC 側で Coffee Hazel アプリを起動している間のみ接続できます
+- QR コードの URL は Wi-Fi 環境によって変わることがあるため、印刷はアプリを使う場所で行ってください
+
+### スマホでのデータ保存
+
+スマホからも CSV やグラフ画像を保存できます。この場合、保存先フォルダの指定は表示されず、**ブラウザのダウンロード**として端末内に保存されます（Android: ダウンロードフォルダ / iPhone: ファイルアプリ）。
+
 ---
 
 ## 8. CSV エクスポート
@@ -251,6 +272,15 @@ Settings タブの下部に QR コードが表示されています。
 1. **Stop Roast** を押すと、画面下部に「Export Roast Data」エリアが表示されます
 2. ファイル名を入力（省略するとタイムスタンプ付きの名前が自動生成されます）
 3. **Download CSV** ボタンを押す
+
+PC 本体では「保存先フォルダ」に指定したフォルダへ直接保存されます（「フォルダ選択...」で変更可能。設定は記憶されます）。スマホからアクセスしている場合はブラウザのダウンロードとして端末に保存されます。
+
+### グラフ画像の保存（PNG / JPG / PDF）
+
+「グラフ画像の保存:」の **PNG / JPG / PDF** ボタンを押すと、いま画面に表示されているグラフ（1ハゼマーカーなども含めた見た目そのまま）を高解像度の画像として保存できます。
+
+- ファイル名は CSV と共通の「ファイル名」欄を使用します（省略時はタイムスタンプ付きの名前）
+- 保存先は CSV と同じです（PC: 保存先フォルダ / スマホ: ブラウザダウンロード）
 
 ### CSV に含まれるカラム
 
@@ -268,6 +298,7 @@ Settings タブの下部に QR コードが表示されています。
 | `humidity2` | センサー 2 湿度（%） |
 | `water_vapor_density2` | センサー 2 水蒸気密度（g/m³） |
 | `first_crack_flag` | 1ハゼ判定フラグ（0 or 1） |
+| `rate_emphasis_gamma` | 焙煎時に使用していた表示強調γの値（全行同じ。フィードバック集計用） |
 
 ---
 
@@ -331,67 +362,17 @@ Settings タブの下部に QR コードが表示されています。
 - ファイアウォールがポート 8050 をブロックしていないか確認してください
 - QR コード下に表示されている URL をスマホのブラウザに直接入力してみてください
 
-### Bluetooth で接続できない
-
-**1. センサーが Bluetooth モードで起動しているか確認する**
-
-Coffee Hazel センサーは、Wi-Fi への接続に失敗した場合のみ Bluetooth モードに切り替わります。センサーの画面（Page3）に「Bluetooth Mode」と表示されていることを確認してください。Wi-Fi に接続されている場合は Bluetooth では起動しません。
-
-**2. macOS の場合：Bluetooth 権限を許可する（最も多い原因）**
-
-macOS はアプリごとに Bluetooth の使用許可が必要です。
-
-1. **システム設定** →「**プライバシーとセキュリティ**」→「**Bluetooth**」を開く
-2. 一覧に Terminal（ソースから実行の場合）または **Coffee Hazel**（アプリの場合）が表示されていることを確認し、スイッチを ON にする
-3. アプリを再起動する
-
-> 許可後、アプリのサイドバーに「🔍 Bluetooth: スキャン中...」→「✓ Bluetooth: 接続済」と表示されれば成功です。「権限がありません」と表示されている場合は上記の手順で許可してください。
-
-**3. その他の確認事項**
-
-- PC の Bluetooth が有効になっているか確認してください
-- 一度「Wi-Fi」モードに切り替えてから再度「Bluetooth」に切り替えると再スキャンが始まります
-- Coffee Hazel センサーのファームウェアが V2.2 以降であることを確認してください
-
----
-
-## 11. Bluetooth (BLE) 接続モード
-
-V2.2.0 から、Wi-Fi の代わりに Bluetooth Low Energy (BLE) でCoffee Hazel センサーに接続できるようになりました。
-
-### 使用場面
-
-- 焙煎環境に 2.4GHz Wi-Fi がなく、5GHz のみの場合
-- Wi-Fi ルーターがない場所での焙煎
-
-### 仕組み
-
-Coffee Hazel センサー（T-Display-S3）は、Wi-Fi への接続に失敗した場合に自動的に Bluetooth モードに切り替わります。アプリ側で「Bluetooth」モードを選ぶと、「Coffee Hazel」という名前のデバイスをスキャンし、見つかると自動で接続します。
-
-センサーからのデータは BLE NUS（Nordic UART Service）経由で送られ、Wi-Fi モードと同じ JSON フォーマットで受信されます。グラフ・1ハゼ検出・CSV エクスポートなど、すべての機能がそのまま使えます。
-
-### 切り替え手順
-
-1. Settings タブ最上部の「接続モード」で **Bluetooth** を選択
-2. サイドバーに「🔍 Bluetooth: スキャン中...」と表示される
-3. Coffee Hazel センサーが検出されると「✓ Bluetooth: 接続済 (Coffee Hazel)」に変わる
-4. あとは Wi-Fi モードと同じように使用できる
-
-設定は次回起動時も記憶されます。Wi-Fi 環境に戻る場合は「Wi-Fi」に切り替えてください。
-
-### 制限事項
-
-- スマートフォンや他デバイスからの同時アクセス（QR コード経由）はできません
-- Coffee Hazel センサーが Wi-Fi に接続されている場合は Bluetooth モードで起動しないため、センサー側の Wi-Fi 設定をリセットするか、Wi-Fi のない環境でセンサーを起動してください
-
 ---
 
 ## バージョン履歴
 
+最新の変更履歴は [CHANGELOG.md](https://github.com/soramamelab/Hazel/releases)（各リリースのリリースノート）を参照してください。
+
 | バージョン | 内容 |
 |-----------|------|
-| **V2.2.0** | **Bluetooth (BLE) 接続モード追加** — 2.4GHz Wi-Fi 不要で Coffee Hazel センサーに直接接続可能に。設定サイドバーで Wi-Fi / Bluetooth を切り替え |
-| **V2.1.1** | macOS版をApple Silicon用・Intel用の2種類のDMGに分離。macOS 15以降のGatekeeper回避手順を更新 |
-| **V2.1.0** | macOS版をIntel Mac（x86_64）対応に。Apple Silicon（M1/M2/M3）はRosetta 2経由で引き続き動作 |
-| **V2.0.2** | 1ハゼ検出しきい値スライダーおよび急変動しきい値スライダーに現在値の数値表示を追加 |
+| **V2.3.0** | グラフ画像の保存（PNG / JPG / PDF）を追加。QRコード印刷用ページを追加。スマホアクセス時の保存UIを改善。X軸メモリを1分間隔に固定。焙煎終了後は1ハゼ訂正バーを非表示に |
+| **V2.2.3** | Ubuntu 22.04 で起動できない問題を修正（22.04 / 24.04 両対応に） |
+| **V2.2.0** | Bluetooth (BLE) 接続モード追加 |
 | **V2.0.1** | ΔH₂O・ΔH₂O変化率に用語統一。投入・チャージ自動検出を急変動（正負両方向）に変更。更新間隔デフォルト 2 秒。アプリアイコン追加。著作権表示追加。Ubuntu 用 `.deb` パッケージを追加 |
+| **V2.0.2** | 投入チャージ検出の `poll_sec` 未定義バグ修正。急変動しきい値をスライダーに変更。1ハゼしきい値ラベルを日本語化 |
+| **V2.0.3** | 変化率グラフの表示を再設計：強調の基準をハゼ閾値から固定値 0.05 に分離（閾値を変えてもグラフの形が不変に）。縦軸を実測値目盛りの非線形スケールに変更し、軸・ホバー・閾値の数字を実測 g/m³/s に統一。閾値の赤線は変換後の正確な位置に描画。CSV出力に使用γ値を記録（`rate_emphasis_gamma` 列）。投入検出しきい値のデフォルトを 0.3→0.25 に変更 |
