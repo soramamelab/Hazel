@@ -31,8 +31,8 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 | Mac の種類 | ダウンロードするファイル |
 |-----------|----------------------|
-| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.3.0-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.0/CoffeeHazel-v2.3.0-AppleSilicon.dmg) |
-| Intel Mac | [`CoffeeHazel-v2.3.0-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.0/CoffeeHazel-v2.3.0-Intel.dmg) |
+| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.3.1-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.1/CoffeeHazel-v2.3.1-AppleSilicon.dmg) |
+| Intel Mac | [`CoffeeHazel-v2.3.1-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.1/CoffeeHazel-v2.3.1-Intel.dmg) |
 
 1. 上記のファイルをダウンロード
 2. DMG を開き、`Coffee Hazel.app` をアプリケーションフォルダにドラッグ＆ドロップ
@@ -48,10 +48,10 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 ### Ubuntu / Linux
 
-[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.3.0_amd64.deb` をダウンロードし、以下を実行してください。（対応OS: Ubuntu 22.04 / 24.04）
+[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.3.1_amd64.deb` をダウンロードし、以下を実行してください。（対応OS: Ubuntu 22.04 / 24.04）
 
 ```bash
-sudo dpkg -i coffee-hazel_2.3.0_amd64.deb
+sudo dpkg -i coffee-hazel_2.3.1_amd64.deb
 sudo apt --fix-broken install   # 依存パッケージ不足時
 ```
 
@@ -99,6 +99,7 @@ sudo apt --fix-broken install   # 依存パッケージ不足時
 
 | バージョン | 内容 |
 |-----------|------|
+| **V2.3.1** | **Linux版: 起動直後にクラッシュする不具合を修正** — ビルド環境の古いGTK/WebKitGTKライブラリが同梱されており、新しいUbuntu（24.04など）でシンボル不整合により起動できない問題を解消 |
 | **V2.3.0** | **グラフ画像の保存（PNG / JPG / PDF）**・**QRコード印刷ページ**を追加。スマホアクセス時の保存UIを改善（PC側にフォルダ選択ダイアログが開く問題を修正）。X軸メモリを1分間隔に固定。焙煎終了後は1ハゼの「いいえ（取消）」バーを非表示に |
 | **V2.2.3** | **Ubuntu 22.04 で起動できない問題を修正**（glibc互換性対応、22.04 / 24.04 両対応に） |
 | **V2.2.2** | アプリ画面のバージョン表示を自動化（VERSION ファイルから取得）。リリースノートを CHANGELOG から自動生成するようビルドを改善 |
