@@ -15,8 +15,10 @@
 - **投入・チャージ自動検出** — ΔH₂Oの急変動（正負両方向）から生豆投入を検知し、グラフを 0 分に自動整列
 - **豆プリセット** — 豆ごとに設定一式を保存・切り替え
 - **CSV エクスポート** — 焙煎データを CSV で保存
+- **グラフ画像エクスポート** — 表示中のグラフを PNG / JPG / PDF で保存
 - **CSV Viewer** — 過去の焙煎 CSV を読み込んでグラフ表示
 - **スマホアクセス** — QR コードで同一 Wi-Fi 上のスマホからリアルタイム確認
+- **QR コード印刷ページ** — スマホアクセス用の QR コードを印刷して掲示できる（シェアロースター向け）
 - **Bluetooth (BLE) 接続** — 2.4GHz Wi-Fi が使えない環境でも Bluetooth 経由でセンサーに直接接続
 
 ---
@@ -29,8 +31,8 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 | Mac の種類 | ダウンロードするファイル |
 |-----------|----------------------|
-| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.2.2-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.2.2/CoffeeHazel-v2.2.2-AppleSilicon.dmg) |
-| Intel Mac | [`CoffeeHazel-v2.2.2-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.2.2/CoffeeHazel-v2.2.2-Intel.dmg) |
+| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.3.0-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.0/CoffeeHazel-v2.3.0-AppleSilicon.dmg) |
+| Intel Mac | [`CoffeeHazel-v2.3.0-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.0/CoffeeHazel-v2.3.0-Intel.dmg) |
 
 1. 上記のファイルをダウンロード
 2. DMG を開き、`Coffee Hazel.app` をアプリケーションフォルダにドラッグ＆ドロップ
@@ -46,10 +48,10 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 ### Ubuntu / Linux
 
-[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.2.2_amd64.deb` をダウンロードし、以下を実行してください。
+[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.3.0_amd64.deb` をダウンロードし、以下を実行してください。（対応OS: Ubuntu 22.04 / 24.04）
 
 ```bash
-sudo dpkg -i coffee-hazel_2.2.2_amd64.deb
+sudo dpkg -i coffee-hazel_2.3.0_amd64.deb
 sudo apt --fix-broken install   # 依存パッケージ不足時
 ```
 
@@ -97,6 +99,8 @@ sudo apt --fix-broken install   # 依存パッケージ不足時
 
 | バージョン | 内容 |
 |-----------|------|
+| **V2.3.0** | **グラフ画像の保存（PNG / JPG / PDF）**・**QRコード印刷ページ**を追加。スマホアクセス時の保存UIを改善（PC側にフォルダ選択ダイアログが開く問題を修正）。X軸メモリを1分間隔に固定。焙煎終了後は1ハゼの「いいえ（取消）」バーを非表示に |
+| **V2.2.3** | **Ubuntu 22.04 で起動できない問題を修正**（glibc互換性対応、22.04 / 24.04 両対応に） |
 | **V2.2.2** | アプリ画面のバージョン表示を自動化（VERSION ファイルから取得）。リリースノートを CHANGELOG から自動生成するようビルドを改善 |
 | **V2.2.1** | **Windows: 上書きインストール時の起動クラッシュを修正** — 旧バージョンのファイルが残って新バージョンと混在し起動に失敗する問題を解消。v2.2.0 以前で発生済みの場合も本バージョン以降の上書きインストールで解消 |
 | **V2.2.0** | **Bluetooth (BLE) 接続モード追加** — 2.4GHz Wi-Fi 不要で Coffee Hazel センサーに直接接続可能に。設定サイドバーで Wi-Fi / Bluetooth を切り替え |
