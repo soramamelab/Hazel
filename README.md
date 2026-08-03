@@ -91,7 +91,11 @@ sudo apt --fix-broken install   # 依存パッケージ不足時
 
 ## ドキュメント
 
-詳しい使い方は [manual.md](manual.md) を参照してください。
+- **[使い方ガイド（Web版）](https://www.soramamelab.com/hazel/guide/)** — 本体のセットアップ・センサー設置手順
+- **[アプリの使い方（Web版）](https://www.soramamelab.com/hazel/guide/app/)** — デスクトップアプリの詳しい操作方法
+- **[クイックスタートガイド（PDF）](https://www.soramamelab.com/hazel/assets/quick-start-guide.pdf)** — 印刷用
+
+このリポジトリ内の [manual.md](manual.md) も同じ内容です。
 
 ---
 
