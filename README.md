@@ -20,6 +20,7 @@
 - **スマホアクセス** — QR コードで同一 Wi-Fi 上のスマホからリアルタイム確認
 - **QR コード印刷ページ** — スマホアクセス用の QR コードを印刷して掲示できる（シェアロースター向け）
 - **Bluetooth (BLE) 接続** — 2.4GHz Wi-Fi が使えない環境でも Bluetooth 経由でセンサーに直接接続
+- **アップデート通知** — 新しいバージョンが公開されると起動時にお知らせし、更新内容をその場で確認してダウンロードできる
 
 ---
 
@@ -31,8 +32,8 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 | Mac の種類 | ダウンロードするファイル |
 |-----------|----------------------|
-| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.3.1-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.1/CoffeeHazel-v2.3.1-AppleSilicon.dmg) |
-| Intel Mac | [`CoffeeHazel-v2.3.1-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.1/CoffeeHazel-v2.3.1-Intel.dmg) |
+| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.3.3-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.3/CoffeeHazel-v2.3.3-AppleSilicon.dmg) |
+| Intel Mac | [`CoffeeHazel-v2.3.3-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.3/CoffeeHazel-v2.3.3-Intel.dmg) |
 
 1. 上記のファイルをダウンロード
 2. DMG を開き、`Coffee Hazel.app` をアプリケーションフォルダにドラッグ＆ドロップ
@@ -44,14 +45,14 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 [Releases](https://github.com/soramamelab/Hazel/releases) から `HazelSetup.exe` をダウンロードして実行してください。（対応OS: Windows 10 以降）
 
-> 起動後に画面が表示されない場合は、WebView2 ランタイムが未導入の可能性があります。[Evergreen Bootstrapper](https://developer.microsoft.com/microsoft-edge/webview2/) からインストールしてください。詳細は [manual.md](manual.md#10-トラブルシューティング) を参照してください。
+> 起動後に画面が表示されない場合は、WebView2 ランタイムが未導入の可能性があります。[Evergreen Bootstrapper](https://developer.microsoft.com/microsoft-edge/webview2/) からインストールしてください。詳細は [manual.md](manual.md#11-トラブルシューティング) を参照してください。
 
 ### Ubuntu / Linux
 
-[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.3.1_amd64.deb` をダウンロードし、以下を実行してください。（対応OS: Ubuntu 22.04 / 24.04）
+[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.3.3_amd64.deb` をダウンロードし、以下を実行してください。（対応OS: Ubuntu 22.04 / 24.04）
 
 ```bash
-sudo dpkg -i coffee-hazel_2.3.1_amd64.deb
+sudo dpkg -i coffee-hazel_2.3.3_amd64.deb
 sudo apt --fix-broken install   # 依存パッケージ不足時
 ```
 
@@ -103,6 +104,8 @@ sudo apt --fix-broken install   # 依存パッケージ不足時
 
 | バージョン | 内容 |
 |-----------|------|
+| **V2.3.3** | **起動時のアップデート通知を追加** — 新しいバージョンが公開されると起動時に画面上部でお知らせし、**更新内容（リリースノート）をその場で確認**してからダウンロードできる。ダウンロードはお使いの OS・CPU に合ったファイルが自動で選ばれる。通知が不要な場合は詳細設定でオフにできる |
+| **V2.3.2** | **「検出開始までの待ち時間」を詳細設定からメイン設定へ移動** — 焙煎ごとに調整する機会が多いため「1ハゼ検出しきい値」の直下に配置。旧「初期のN分間を無視 / Ignore first N min」から名称と説明を分かりやすく変更 |
 | **V2.3.1** | **Linux版: 起動直後にクラッシュする不具合を修正** — ビルド環境の古いGTK/WebKitGTKライブラリが同梱されており、新しいUbuntu（24.04など）でシンボル不整合により起動できない問題を解消 |
 | **V2.3.0** | **グラフ画像の保存（PNG / JPG / PDF）**・**QRコード印刷ページ**を追加。スマホアクセス時の保存UIを改善（PC側にフォルダ選択ダイアログが開く問題を修正）。X軸メモリを1分間隔に固定。焙煎終了後は1ハゼの「いいえ（取消）」バーを非表示に |
 | **V2.2.3** | **Ubuntu 22.04 で起動できない問題を修正**（glibc互換性対応、22.04 / 24.04 両対応に） |
