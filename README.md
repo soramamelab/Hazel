@@ -33,8 +33,8 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 | Mac の種類 | ダウンロードするファイル |
 |-----------|----------------------|
-| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.3.4-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.4/CoffeeHazel-v2.3.4-AppleSilicon.dmg) |
-| Intel Mac | [`CoffeeHazel-v2.3.4-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.4/CoffeeHazel-v2.3.4-Intel.dmg) |
+| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.3.5-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.5/CoffeeHazel-v2.3.5-AppleSilicon.dmg) |
+| Intel Mac | [`CoffeeHazel-v2.3.5-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.5/CoffeeHazel-v2.3.5-Intel.dmg) |
 
 1. 上記のファイルをダウンロード
 2. DMG を開き、`Coffee Hazel.app` をアプリケーションフォルダにドラッグ＆ドロップ
@@ -44,16 +44,16 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 ### Windows
 
-[Releases](https://github.com/soramamelab/Hazel/releases) から `HazelSetup-v2.3.4-win64.exe` をダウンロードして実行してください。（対応OS: Windows 10 以降）
+[Releases](https://github.com/soramamelab/Hazel/releases) から `HazelSetup.exe` をダウンロードして実行してください。（対応OS: Windows 10 以降）
 
 > 起動後に画面が表示されない場合は、WebView2 ランタイムが未導入の可能性があります。[Evergreen Bootstrapper](https://developer.microsoft.com/microsoft-edge/webview2/) からインストールしてください。詳細は [manual.md](manual.md#12-トラブルシューティング) を参照してください。
 
 ### Ubuntu / Linux
 
-[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.3.4_amd64.deb` をダウンロードし、以下を実行してください。（対応OS: Ubuntu 22.04 / 24.04）
+[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.3.5_amd64.deb` をダウンロードし、以下を実行してください。（対応OS: Ubuntu 22.04 / 24.04）
 
 ```bash
-sudo dpkg -i coffee-hazel_2.3.4_amd64.deb
+sudo dpkg -i coffee-hazel_2.3.5_amd64.deb
 sudo apt --fix-broken install   # 依存パッケージ不足時
 ```
 
@@ -105,6 +105,7 @@ sudo apt --fix-broken install   # 依存パッケージ不足時
 
 | バージョン | 内容 |
 |-----------|------|
+| **V2.3.5** | **Bluetooth 接続時の変化率の計算を修正** — 本体が値を更新した実際の間隔で割るようにした。旧ファーム（V2.3.0 以前）と Bluetooth の組み合わせで、変化率グラフがギザギザになり値も過大に出ていた問題が解消する。**本体のファームウェアも V2.3.1 に更新してください**（本体の更新画面から。Bluetooth 接続時の計測間隔が 7秒 → 2秒 になり、1ハゼの時間分解能が向上します） |
 | **V2.3.4** | **グラフの右クリック（スマホは長押し）でイベントを記録できるように** — 排気操作・2ハゼ・排出をその時刻に記録し、グラフとCSVに残せる。自動検出が外れたときは投入・1ハゼも指定し直せる。**待機中もグラフを表示**し、焙煎開始でリセット。**変化率グラフの強調方式を刷新**（1ハゼ判定ラインの前後を拡大する方式に）。**1ハゼしきい値のスライダーを微調整しやすく**（よく使う範囲を広く取り、数値入力にも対応）。**豆プリセットを明示保存に変更**し、一覧から整理できる管理画面を追加。焙煎終了時に保存ポップアップ。時刻表示を mm:ss に統一。基調色をスカイブルーとオレンジに。日本語入力・スマホ操作・スマホからの接続に関する不具合を修正 |
 | **V2.3.3** | **起動時のアップデート通知を追加** — 新しいバージョンが公開されると起動時に画面上部でお知らせし、**更新内容（リリースノート）をその場で確認**してからダウンロードできる。ダウンロードはお使いの OS・CPU に合ったファイルが自動で選ばれる。通知が不要な場合は詳細設定でオフにできる |
 | **V2.3.2** | **「検出開始までの待ち時間」を詳細設定からメイン設定へ移動** — 焙煎ごとに調整する機会が多いため「1ハゼ検出しきい値」の直下に配置。旧「初期のN分間を無視 / Ignore first N min」から名称と説明を分かりやすく変更 |
