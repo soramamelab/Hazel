@@ -35,8 +35,8 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 | Mac の種類 | ダウンロードするファイル |
 |-----------|----------------------|
-| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.3.8-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.8/CoffeeHazel-v2.3.8-AppleSilicon.dmg) |
-| Intel Mac | [`CoffeeHazel-v2.3.8-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.8/CoffeeHazel-v2.3.8-Intel.dmg) |
+| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.3.10-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.10/CoffeeHazel-v2.3.10-AppleSilicon.dmg) |
+| Intel Mac | [`CoffeeHazel-v2.3.10-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.10/CoffeeHazel-v2.3.10-Intel.dmg) |
 
 1. 上記のファイルをダウンロード
 2. DMG を開き、`Coffee Hazel.app` をアプリケーションフォルダにドラッグ＆ドロップ
@@ -52,10 +52,10 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 ### Ubuntu / Linux
 
-[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.3.8_amd64.deb` をダウンロードし、以下を実行してください。（対応OS: Ubuntu 22.04 / 24.04）
+[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.3.10_amd64.deb` をダウンロードし、以下を実行してください。（対応OS: Ubuntu 22.04 / 24.04）
 
 ```bash
-sudo dpkg -i coffee-hazel_2.3.8_amd64.deb
+sudo dpkg -i coffee-hazel_2.3.10_amd64.deb
 sudo apt --fix-broken install   # 依存パッケージ不足時
 ```
 
@@ -107,6 +107,8 @@ sudo apt --fix-broken install   # 依存パッケージ不足時
 
 | バージョン | 内容 |
 |-----------|------|
+| **V2.3.10** | **焙煎の終わりの線が二重になる不具合を修正** — 「排出」を記録してから焙煎終了ボタンを押すと、排出の位置に「排出」、ボタンの位置に「上げ」と2本の線が引かれていた。線は「排出 mm:ss」の1本にし、「排出」を記録していればその時刻、無ければ焙煎終了ボタンの時刻に引く（排出のあとも焙煎終了まで記録は続く。DTR・焙煎時間は変わらない）。排出の自動検出がオンのとき、手動の「排出」のあとに2本目の「排出」が追加される不具合も修正 |
+| **V2.3.9** | **1ハゼの通知音を大音量のアラームに** — 音量最大・矩形波でメロディを3回、「はい」か「いいえ」を押すまで 10 秒ごとに鳴り直す（本体のスマートフォン画面と同じ音）。**測定中の焙煎時間を表示** — 状態バッジの右に投入からの経過時間と DTR を常に表示 |
 | **V2.3.8** | **イベント入力のボタンを復活** — 「焙煎開始／焙煎終了」の下に 投入 / 排気操作 / 1ハゼ / 2ハゼ / 排出 / 取消 のボタンを配置。押した瞬間の時刻で記録する（時刻を選んで記録・訂正するときは従来どおりグラフの右クリック）。焙煎中は「焙煎開始」を押せないようにし、二度押しで記録が消えるのを防止。**DTR と焙煎時間の終わりを「排出」イベントに合わせた** — 手動で「排出」を記録してから焙煎終了ボタンを押した場合、排出からボタンまでの時間ぶん水増しされていた問題を修正。**複数のブラウザ（PC とスマホ）を同時に開いていると右クリック／ボタンの操作が繰り返し適用される不具合を修正** |
 | **V2.3.6** | **排出（焙煎終了）の自動検出を追加** — 豆を出したときのΔH₂Oの落ち込みから排出を判定し、焙煎を自動で終了できる（詳細設定でオン／オフとしきい値を設定。**初期設定はオフ**）。判定は「30秒前までの最大値から設定した割合（初期値20%）下がり、そのまま15秒戻らない」で、排気操作のような一時的な落ち込みでは止まらない。**DTR（Development Time Ratio）の表示を追加** — 1ハゼを検知すると「1ハゼ以降の時間 ÷ 焙煎時間」を自動計算し、焙煎中は途中経過、焙煎終了で確定値を表示（保存ポップアップと CSV Viewer にも表示）。**配布版でグラフの右クリックメニューが開かない不具合を修正**（同梱していた pywebview が古かったため。イベント記録が使えるようになります） |
 | **V2.3.5** | **Bluetooth 接続時の変化率の計算を修正** — 本体が値を更新した実際の間隔で割るようにした。旧ファーム（V2.3.0 以前）と Bluetooth の組み合わせで、変化率グラフがギザギザになり値も過大に出ていた問題が解消する。**本体のファームウェアも V2.3.1 に更新してください**（本体の更新画面から。Bluetooth 接続時の計測間隔が 7秒 → 2秒 になり、1ハゼの時間分解能が向上します） |
