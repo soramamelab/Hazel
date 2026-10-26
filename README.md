@@ -37,8 +37,8 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 | Mac の種類 | ダウンロードするファイル |
 |-----------|----------------------|
-| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.3.11-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.11/CoffeeHazel-v2.3.11-AppleSilicon.dmg) |
-| Intel Mac | [`CoffeeHazel-v2.3.11-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.11/CoffeeHazel-v2.3.11-Intel.dmg) |
+| Apple Silicon（M1 / M2 / M3 など） | [`CoffeeHazel-v2.3.12-AppleSilicon.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.12/CoffeeHazel-v2.3.12-AppleSilicon.dmg) |
+| Intel Mac | [`CoffeeHazel-v2.3.12-Intel.dmg`](https://github.com/soramamelab/Hazel/releases/download/v2.3.12/CoffeeHazel-v2.3.12-Intel.dmg) |
 
 1. 上記のファイルをダウンロード
 2. DMG を開き、`Coffee Hazel.app` をアプリケーションフォルダにドラッグ＆ドロップ
@@ -54,10 +54,10 @@ CPUに合わせてDMGを選択してください（Apple メニュー →「こ�
 
 ### Ubuntu / Linux
 
-[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.3.11_amd64.deb` をダウンロードし、以下を実行してください。（対応OS: Ubuntu 22.04 / 24.04）
+[Releases](https://github.com/soramamelab/Hazel/releases) から `coffee-hazel_2.3.12_amd64.deb` をダウンロードし、以下を実行してください。（対応OS: Ubuntu 22.04 / 24.04）
 
 ```bash
-sudo dpkg -i coffee-hazel_2.3.11_amd64.deb
+sudo dpkg -i coffee-hazel_2.3.12_amd64.deb
 sudo apt --fix-broken install   # 依存パッケージ不足時
 ```
 
@@ -109,6 +109,7 @@ sudo apt --fix-broken install   # 依存パッケージ不足時
 
 | バージョン | 内容 |
 |-----------|------|
+| **V2.3.12** | **Artisan 用の設定ファイルを書き出せるように** — 「SSID / ホスト」の下の「Artisan 用の設定ファイルを書き出す」を押すと、入力済みの本体の IP アドレス入りの `COFFEE_HAZEL.aset` が保存される。Artisan で ファイル → 新規 にしてから、ヘルプ → 設定の読み込み... で選ぶだけで、Host に IP を手入力する必要がなくなる（Wi-Fi 接続のときだけ表示） |
 | **V2.3.11** | **通知音の ON/OFF と音量調整を追加** — 画面上部の「🔔 音 ON / 🔕 音 OFF」ボタンで通知音をまとめて止められる。サイドバーの「通知音」で音量を 0〜100% に調整でき、「鳴らしてみる」で実際の音量を確かめられる。どちらも端末ごとの設定で、PC で消してもスマホからアクセスしている人には鳴る。「排出 mm:ss」のラベルが「1st Crack」と重なって読めなくなる不具合も修正 |
 | **V2.3.10** | **焙煎の終わりの線が二重になる不具合を修正** — 「排出」を記録してから焙煎終了ボタンを押すと、排出の位置に「排出」、ボタンの位置に「上げ」と2本の線が引かれていた。線は「排出 mm:ss」の1本にし、「排出」を記録していればその時刻、無ければ焙煎終了ボタンの時刻に引く（排出のあとも焙煎終了まで記録は続く。DTR・焙煎時間は変わらない）。排出の自動検出がオンのとき、手動の「排出」のあとに2本目の「排出」が追加される不具合も修正 |
 | **V2.3.9** | **1ハゼの通知音を大音量のアラームに** — 音量最大・矩形波でメロディを3回、「はい」か「いいえ」を押すまで 10 秒ごとに鳴り直す（本体のスマートフォン画面と同じ音）。**測定中の焙煎時間を表示** — 状態バッジの右に投入からの経過時間と DTR を常に表示 |
